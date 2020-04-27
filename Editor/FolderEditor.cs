@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+using System.Threading.Tasks;
+using UnityEditor;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityHierarchyFolders.Runtime;
 
@@ -7,16 +9,15 @@ namespace UnityHierarchyFolders.Editor
     [CustomEditor(typeof(Folder))]
     public class FolderEditor : UnityEditor.Editor
     {
-        private bool _expanded = false;
-
         public override bool RequiresConstantRepaint() => true;
+
         public override void OnInspectorGUI()
         {
-            this._expanded = EditorGUILayout.Foldout(this._expanded, "Icon Color");
-            if (this._expanded) { this.RenderColorPicker(); }
+            GUILayout.Label("Icon Color", EditorStyles.boldLabel);
+            DoIconColorPicker();
         }
 
-        private void RenderColorPicker()
+        private void DoIconColorPicker()
         {
             var colorIndexProperty = this.serializedObject.FindProperty("_colorIndex");
 
